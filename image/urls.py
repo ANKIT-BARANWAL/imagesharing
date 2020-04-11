@@ -13,9 +13,25 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
+from django.urls import path,  include
 
+from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
+
+admin.autodiscover()
+
+MEDIA_ROOT =r'C:\Users\DELL\imageshare\media'
+MEDIA_URL = 'media/'
 urlpatterns = [
+    # Examples:
+    # url(r'^$', 'image_share.views.home', name='home'),
+    # url(r'^blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
+    path('', include('images.urls')),
 ]
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
+# urlpatterns += patterns('',
+#         (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+#         'document_root': settings.MEDIA_ROOT}))
